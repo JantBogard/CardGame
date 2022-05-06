@@ -8,3 +8,4 @@ Le projet est organisé en utilisant le pattern MVC
 - O pour "Open/Closed", le principe ouvert/fermé
     Ici le code doivent être ouvert à l'extension et fermé au modification
 - L pour principe de substitution de Liskov
+    Ici
