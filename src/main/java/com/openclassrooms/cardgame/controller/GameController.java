@@ -7,22 +7,23 @@ import com.openclassrooms.cardgame.games.GameEvaluator;
 import com.openclassrooms.cardgame.model.Deck;
 import com.openclassrooms.cardgame.model.Player;
 import com.openclassrooms.cardgame.model.PlayingCard;
-import com.openclassrooms.cardgame.view.View;
+import com.openclassrooms.cardgame.view.CommandLineView;
+import com.openclassrooms.cardgame.view.GameViewable;
 
 public class GameController {
     enum GameState {
-        AddingPlayers, CardsDealt, WinnerRevealed;
+        AddingPlayers, CardsDealt, WinnerRevealed, ExitGame;
     }
 
     Deck deck;
     List<Player> players;
     Player winner;
-    View view;
+    GameViewable view;
 
     GameState gameState;
     GameEvaluator gameEvaluator;
 
-    public GameController(Deck deck, View view, GameEvaluator evaluator) {
+    public GameController(Deck deck, GameViewable view, GameEvaluator evaluator) {
         super();
         this.deck = deck;
         this.view = view;
@@ -44,6 +45,7 @@ public class GameController {
             case WinnerRevealed:
                 view.promptForNewGame();
                 break;
+            case ExitGame:
             default:
                 break;
         }
@@ -95,6 +97,18 @@ public class GameController {
     void rebuildDeck() {
         for (Player player : players) {
             deck.returnCardToDeck(player.removeCard());
+        }
+    }
+
+    public void exitGame() {
+        System.exit(0);
+    }
+
+    public void nextAction(String nextChoice) {
+        if ("+q".equals(nextChoice)) {
+            exitGame();
+        } else {
+            StartGame();
         }
     }
 }
